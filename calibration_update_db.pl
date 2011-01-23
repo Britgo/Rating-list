@@ -1,7 +1,6 @@
 #! /usr/bin/perl
 #
 # Generate the calibration entries in the database
-# Also generate the comparison file.
 #
 # Copyright John Collins 22/01/2011
 
@@ -105,11 +104,5 @@ $sfh->execute;
 if ($row[0] == 0)  {
 	$sfh = $Database->prepare("insert into calibration (cdate,shodan,onestone) values ($qdate,$shodan,$one_stone)");
 	$sfh->execute;
-}
-
-if (open(OUTC, ">>calibration.txt"))  {
-	printf OUTC "%.4d %.2d %.2d %.4d %6.2f\n",
-		$tbits[5]+1900, $tbits[4]+1, $tbits[3], $shodan, $one_stone;
-	close OUTC;
 }
 exit 1;

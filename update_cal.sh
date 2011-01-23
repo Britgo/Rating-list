@@ -21,4 +21,13 @@ then
 	(date; echo "Aborting $0") >>UPDATE_ERRORS
 	exit 10
 fi
+
+./calibration_list_gen.pl 2>>UPDATE_ERRORS
+
+if [ $? -ne 0 ]
+then
+	(date; echo "$0: List gen failed") >>UPDATE_ERRORS
+	exit 11
+fi
+
 exit 0
