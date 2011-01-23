@@ -7,6 +7,8 @@
 
 use DBD::mysql;
 use Time::Local;
+use File::Copy;
+use File::Compare;
 
 # This is where we might expect to get the EGD stuff from,
 # the file name it is in, and a backup copy of the file.
@@ -31,7 +33,7 @@ unless (chdir $rating_scripts)  {
 
 if (-f $EGD_file)  {
 	unlink $old_file;
-	if (system("cp $EGD_file $old_file") != 0)  {
+	unless (copy($EGD_file, $old_file))  {
 		print STDERR "Could not backup old file\n";
 		exit 9;
 	}
@@ -48,7 +50,7 @@ if (system("wget -N -q $EGD_source/$EGD_file") != 0) {
 # to the shell. (Note cmp gives a non-zero exit code if it can't find the file
 # or the files differ)
 
-exit 0 if system("cmp -s $EGD_file $old_file") == 0;
+exit 0 if compare($EGD_file, $old_file) == 0;
 
 # OK open the database
 # FIXME set user name and password to allow SELECT and INSERT ops
