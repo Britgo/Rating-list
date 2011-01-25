@@ -42,8 +42,6 @@ unless ($Database)  {
 $sfh = $Database->prepare("select tcode,tdate,country,description from tournament");
 $sfh->execute;
 
-# We read the date straight in as MySQL format as that's what we plug in
-
 while (my @row = $sfh->fetchrow_array)  {
 	my ($tcode, $tdate, $tcount, $tdescr) = @row;
 	my $gdate = Mysqldate_to_gmtime($tdate);
@@ -232,7 +230,17 @@ of $cal_date.</p>
 
 <p>If you notice any errors in the data here, please report them to the <a href="mailto:results\@britgo.org">tournament results officer</a>, <a href="http://www.britgo.org/ratings/krfaq.html#errors">as explained in the FAQ</a>.</p>
 
-<table border="1" cellpadding="4" id="ratingtable"><thead>
+<table border="1" cellpadding="4" id="ratingtable">
+<thead>
+<tr>
+<th class="l">sort <a href='javascript:sortTable(0, 1)'>+</a>/<a href='javascript:sortTable(0, -1)'>-</a></th>
+<td><a href='javascript:sortTable(1, 1)'>+</a>/<a href='javascript:sortTable(1, -1)'>-</a></td>
+<td><a href='javascript:sortTable(2, 1)'>+</a>/<a href='javascript:sortTable(2, -1)'>-</a></td>
+<td><a href='javascript:sortTable(3, 1)'>+</a>/<a href='javascript:sortTable(3, -1)'>-</a></td>
+<td><a href='javascript:sortTable(4, 1)'>+</a>/<a href='javascript:sortTable(4, -1)'>-</a></td>
+<td class="l"><a href='javascript:sortTable(5, 1)'>+</a>/<a href='javascript:sortTable(5, -1)'>-</a></td>
+<td><a href='javascript:sortTable(6, 1)'>+</a>/<a href='javascript:sortTable(6, -1)'>-</a></td>
+</tr>
 <tr>
   <th class="l">Name</th>
   <th>Grade</th>
@@ -240,7 +248,7 @@ of $cal_date.</p>
   <th>Strength</th>
   <th title="Date when this player's rating last changed">Since</th>
   <th class="l">Club</th>
-  <th title="Number of rated tournaments this player has ever competed in">T</th>
+  <th title="Number of rated tournaments this player has ever competed in">Tours</th>
 </tr>
 </thead>
 
