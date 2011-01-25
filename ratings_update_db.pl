@@ -171,3 +171,6 @@ while (<EGDF>)  {
 	}
 	$sfh->execute;
 }
+
+exit 1;
+
