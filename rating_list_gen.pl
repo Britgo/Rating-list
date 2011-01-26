@@ -19,7 +19,7 @@ sub Mysqldate_to_gmtime {
 # This is the directory where we work in
 
 $rating_scripts = "/var/www/ratings/scripts";
-$rating_list_file = "../newlist.html";
+$rating_list_file = "/var/www/bgasite/ratings/list.html";
 
 # Select that directory in case of any doubt
 
@@ -90,143 +90,19 @@ $cal_date = "$cal_day$cal_th $cal_month $cal_year";
 select RL;
 
 print <<END;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>BGA rating list</title>
-<link rel="stylesheet" title="BGA stylesheet" href="bga.css" type="text/css">
-<style type="text/css">
-#ratingdata a {
-  color: black;
-  text-decoration: none;
-}
-#ratingdata a:hover {
-  color: blue;
-  text-decoration: underline;
-}
-.ur {
-  color: red;
-}
-#ratingtable .l {
-  text-align: left;
-}
-#ratingtable td, #ratingtable th {
-  text-align: right;
-}
-
-\@media print {
-	#ratingtable tfoot {
-		display: none;
-	}
-}
-</style>
-<script type="text/javascript">
-// Inspiration for this code comes from <http://www.squarefree.com/bookmarklets/pagedata.html#sort_table>.
-function insertAtTop(parent, child) {
-	if (parent.childNodes.length) {
-		parent.insertBefore(child, parent.childNodes[0]);
-	} else {
-		parent.appendChild(child);
-	}
-}
-
-function compareRows(a, b) {
-	if(a.sortKey==b.sortKey) return 0;
-	return (a.sortKey<b.sortKey) ? g_order : -g_order;
-}
-
-function trim(s) {
-	var start = 0;
-	var end = s.length;
-	while (s[start]==' ') {
-		++start;
-	}
-	while (s[end]==' ') {
-		--end;
-	}
-	return s.substr(start, end + 1);
-}
-
-function getText(e) {
-	if (e.nodeType == 3) { // Text node
-		return e.data;
-	} else if (e.nodeType == 1) { // Element node
-		var child = e.firstChild;
-		var ans = '';
-		while (child != null) {
-			ans += getText(child);
-			child = child.nextSibling;
-		}
-		return ans;
-	}
-}
-
-function sortTable(columnNo, order) {
-	var tableBody, rows, i;
-	g_order = order;
-	tableBody = document.getElementById('ratingdata');
-	rows = new Array();
-	for(i = 0; i<tableBody.rows.length; ++i) {
-		rows[i] = tableBody.rows[i];
-		var temp = trim(getText(rows[i].cells[columnNo]));
-
-		if (columnNo==0) { // Player name - make it sort on last name
-			var j = temp.lastIndexOf(' ');
-			if (i >= 0) {
-				rows[i].sortKey = temp.slice(j + 1) + ' ' + temp.slice(0, j);
-			} else {
-				rows[i].sortKey = temp;
-			}
-		} else if (columnNo==1 || columnNo==3) { // grade or strength.
-			if (temp.charAt(temp.length - 1).toLowerCase() == 'k') {
-				rows[i].sortKey = -Number(temp.slice(0, temp.length - 1));
-			} else {
-				rows[i].sortKey = Number(temp.slice(0, temp.length - 1)) - 1;
-			}
-		} else if (columnNo==4) { // Date TODO
-			var bits = temp.split('-');
-			var month = -1
-			switch (bits[1]) {
-				case "Jan": month = 0; break;
-				case "Feb": month = 1; break;
-				case "Mar": month = 2; break;
-				case "Apr": month = 3; break;
-				case "May": month = 4; break;
-				case "Jun": month = 5; break;
-				case "Jul": month = 6; break;
-				case "Aug": month = 7; break;
-				case "Sep": month = 8; break;
-				case "Oct": month = 9; break;
-				case "Nov": month = 10; break;
-				case "Dec": month = 11; break;
-			}
-			rows[i].sortKey = new Date(bits[2], month, bits[0]);
-		} else if (columnNo==5) { // Club
-			rows[i].sortKey = temp;
-		} else { // The numeric columns
-			rows[i].sortKey = Number(temp);
-		}
-	}
-	rows.sort(compareRows);
-	for (i = 0; i<rows.length; ++i) {
-		insertAtTop(tableBody, rows[i]);
-	}
-}
-</script>
-</head>
-
-<body text="#000000" bgcolor="#FFFF99" link="#0000CC" alink="#0000CC" vlink="#000066">
-
-<h1>BGA rating list</h1>
-
-<p>Based on the
+<p>This is based on the
 <a href="http://www.europeangodatabase.eu/EGD/EGF_rating_system.php">European rating list</a>
 of $cal_date.</p>
 
 <p>The <a href="http://www.britgo.org/ratings/krfaq.html">ratings FAQ</a> explains this table, and how to use the information it contains.</p>
 
-<p>You can get a graph of a player&#8217;s rating history by clicking on their name in the list below.</p>
+<p>You can get a graph of a player&#8217;s rating history by clicking on their name in the list below.
+You can see details of the last tournament the player attended by clicking on
+the <b>since</b> column.</p>
+
+<p>You can also reorder the list according to the criteria at the head of the column
+in ascending or descending order by clicking on the <b>+</b> or <b>-</b> link at the
+head or foot of the column.</p>
 
 <p>If you notice any errors in the data here, please report them to the <a href="mailto:results\@britgo.org">tournament results officer</a>, <a href="http://www.britgo.org/ratings/krfaq.html#errors">as explained in the FAQ</a>.</p>
 
@@ -340,12 +216,5 @@ an average number of European rating points per one grade difference (<var>g</va
 
 <p>Strength is calculated using <var>strength</var> = (<var>rating</var> - <var>r</var>) / <var>g</var>. The <a href="http://www.britgo.org/ratings/krfaq.html#techie">technical section of the FAQ</a> contains a more detailed explanation.</p>
 
-
-<hr>
-<p>This page is part of the <span class="cap">B</span>ritish <span class="cap">G</span>o
-<span class="cap">A</span>ssociation <a href="http://www.britgo.org">web site</a>.</p>
-
-</body>
-</html>
 END
 exit 0;
