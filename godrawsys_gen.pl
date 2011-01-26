@@ -30,6 +30,7 @@ unless (open(GDS, ">$Outfile"))  {
 	print STDERR "Cannot open open output file $Outfile\n";
 	exit 12;
 }
+select GDS;
 
 print <<END;
 NAME-FG GRADE   CLUB    COUNTRY RATING
