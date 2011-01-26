@@ -1,0 +1,101 @@
+#! /bin/sh
+
+# We do everything in the scripts directory which is currently shared with the
+# graph directory using a symbolic link
+
+cd /var/www/ratings/scripts
+
+################################
+# Update calibration
+################################
+
+./calibration_update_db.pl 2>>UPDATE_ERRORS
+exit_code=$?
+
+# If no changes the update program gives an exit code of zero
+# If there are changes it gives a code of 1 anything else it gives some other code.
+
+if [ $exit_code -ne 0 ]
+then
+	if [ $exit_code -ne 1 ]
+	then
+		echo "`date '+%d/%m/%y %T'`:Aborting Calibration" >>UPDATE_ERRORS
+		exit 10
+	fi
+
+	./calibration_list_gen.pl 2>>UPDATE_ERRORS
+
+	if [ $? -ne 0 ]
+	then
+		echo "`date '+%d/%m/%y %T'`:Aborting Calibration List Gen" >>UPDATE_ERRORS
+		exit 11
+	fi
+fi
+
+###############################
+# Update rating tournament list
+###############################
+
+./tournament_update_db.pl 2>>UPDATE_ERRORS
+exit_code=$?
+
+# If no changes the update program gives an exit code of zero
+# If there are changes it gives a code of 1 anything else it gives some other code.
+
+if [ $exit_code -ne 0 ]
+then
+	if [ $exit_code -ne 1 ]
+	then
+		echo "`date '+%d/%m/%y %T'`:Aborting Tournament update" >>UPDATE_ERRORS
+		exit 10
+	fi
+
+	./tournament_list_gen.pl 2>>UPDATE_ERRORS
+
+	if [ $? -ne 0 ]
+	then
+		echo "`date '+%d/%m/%y %T'`:Aborting Tournament List Gen" >>UPDATE_ERRORS
+		exit 11
+	fi
+fi
+
+####################
+# Update rating data
+####################
+
+./ratings_update_db.pl
+exit_code=$?
+
+# If no changes the update program gives an exit code of zero and we
+# can skip all of the rest.
+
+if [ $exit_code -eq 0 ]
+then
+	exit 0
+fi
+
+# Otherwise it gives an exit code of one if there have been changes
+# Other exit codes mean disaster
+
+if [ $exit_code -ne 1 ]
+then
+	echo "`date '+%d/%m/%y %T'`:Aborting Ratings update" >>UPDATE_ERRORS
+fi
+
+# Now generate rating list
+
+./rating_list_gen.pl >>UPDATE_ERRORS
+
+# Note possible promotions and qualifications for the championship
+
+./qualfile_update_db.pl >>UPDATE_ERRORS
+./posspromo_list_gen.pl >>UPDATE_ERRORS
+./qualfile_gen.pl >>UPDATE_ERRORS
+
+# Update godrawsys table
+
+./godrawsys_gen.pl >>UPDATE_ERRORS
+
+# Reset changed marker (don't bother for now until we're happy)
+
+# ./resetchanged.pl
