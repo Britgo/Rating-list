@@ -2,7 +2,7 @@
 #
 # Reset the changed marker on players.
 #
-# Copyright John Collins 22/01/2011
+# Copyright John Collins 26/01/2011
 
 use DBD::mysql;
 
