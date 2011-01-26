@@ -51,7 +51,7 @@ END
 }
 
 
-my $qualifiers_list = 'qualifiers.html';
+my $qualifiers_list = '/var/www/bgasite/ratings/qualifiers.html';
 @month_full_names = qw/January February March April May June July August September October November December/;
 
 # Get the qualifying year as the argument otherwise default
@@ -112,19 +112,9 @@ $cal_date = "$cal_day$cal_th $cal_month $cal_year";
 select QUAL;
 
 print <<END;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Provisional qualifiers for the $Champ_year British Go Championship</title>
-<link rel="stylesheet" title="BGA stylesheet" href="bga.css" type="text/css">
-</head>
-
 <!-- Warning, this page is automatically generated. If you edit it, your changes will be 
 lost the next time the rating list is updated. If you need anything changed you will
 have to ask the web team. -->
-
-<body  text="#000000" bgcolor="#FFFF99" link="#0000CC" alink="#0000CC" vlink="#000066">
 
 <h1>Provisional qualifiers for the $Champ_year British Go Championship</h1>
 
@@ -178,6 +168,4 @@ print <<END;
 </ul>
 
 <p>Total $count qualifiers.</p>
-</body>
-</html>
 END
