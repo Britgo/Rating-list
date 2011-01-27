@@ -39,7 +39,7 @@ unless ($Database)  {
 
 # Read list of tournament names and dates
 
-$sfh = $Database->prepare("select tcode,tdate,country,description from tournament");
+$sfh = $Database->prepare("SELECT tcode,tdate,country,description FROM tournament");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
@@ -50,7 +50,7 @@ while (my @row = $sfh->fetchrow_array)  {
 
 # Read list of club names
 
-$sfh = $Database->prepare("select code,name from club");
+$sfh = $Database->prepare("SELECT code,name FROM club");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
@@ -59,11 +59,11 @@ while (my @row = $sfh->fetchrow_array)  {
 
 # Get the last shodan rating and one stone from the calibration
 
-$sfh = $Database->prepare("select shodan,onestone from calibration order by cdate desc limit 1");
+$sfh = $Database->prepare("SELECT shodan,onestone FROM calibration ORDER BY cdate DESC LIMIT 1");
 $sfh->execute;
 if (my @row = $sfh->fetchrow_array) {
-	$sd = $row[0];
-	$og = $row[1];
+	$shodan = $row[0];
+	$onestone = $row[1];
 }
 
 # Ready to start generating list
@@ -145,17 +145,17 @@ END
 
 # Loop over players
 
-$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,strength,since,ltcode,ntourn,club,reliable FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
+$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,since,ltcode,ntourn,club,reliable FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
-	my ($first,$last,$pin,$grade,$rating,$strength,$since,$lastt,$nt,$clubc,$reliable) = @row;
+	my ($first,$last,$pin,$grade,$rating,$since,$lastt,$nt,$clubc,$reliable) = @row;
 	# Get name right plus link to EGD
 	my $name = "$first $last";
 	$name =~ tr/_/ /;
 	$name = "<a href=\"http://www.europeangodatabase.eu/EGD/Player_Card.php?key=$pin\">$name</a>";
 	# Get grade right
-	my $sc = (!$reliable || $strength < -17.0)? ' class="ur"' : '';
+	
 	my $gc = (!$reliable || $grade < -20)? ' class="ur"' : '';
 	if ($grade < 0)  {
 		$grade = -$grade;
@@ -169,7 +169,11 @@ while (my @row = $sfh->fetchrow_array)  {
 	# We don't need to fiddle with the rating
 	# Get strength right
 	
+	my $strength = ($rating - $shodan) / $onestone;
+	my $sc = (!$reliable || $strength < -17.0)? ' class="ur"' : '';
+	
 	if ($strength < -0.5)  {
+		$strength = -20.0 if $strength < -20.0;
 		$strength = sprintf "%4.1f k", -$strength;
 	}
 	else {
@@ -211,8 +215,8 @@ END
 print <<END;
 </tbody></table>
 
-<p>On the last run, an average European shodan rating (<var>r</var>) is $sd, and
-an average number of European rating points per one grade difference (<var>g</var>) is $og.</p>
+<p>On the last run, an average European shodan rating (<var>r</var>) is $shodan, and
+an average number of European rating points per one grade difference (<var>g</var>) is $onestone.</p>
 
 <p>Strength is calculated using <var>strength</var> = (<var>rating</var> - <var>r</var>) / <var>g</var>. The <a href="http://www.britgo.org/ratings/krfaq.html#techie">technical section of the FAQ</a> contains a more detailed explanation.</p>
 
