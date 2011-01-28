@@ -145,18 +145,18 @@ END
 
 # Loop over players
 
-$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,since,ltcode,ntourn,club,reliable FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
+$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,since,ltcode,ntourn,club FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
-	my ($first,$last,$pin,$grade,$rating,$since,$lastt,$nt,$clubc,$reliable) = @row;
+	my ($first,$last,$pin,$grade,$rating,$since,$lastt,$nt,$clubc) = @row;
 	# Get name right plus link to EGD
 	my $name = "$first $last";
 	$name =~ tr/_/ /;
 	$name = "<a href=\"http://www.europeangodatabase.eu/EGD/Player_Card.php?key=$pin\">$name</a>";
 	# Get grade right
 	
-	my $gc = (!$reliable || $grade < -20)? ' class="ur"' : '';
+	my $gc = $grade < -20? ' class="ur"' : '';
 	if ($grade < 0)  {
 		$grade = -$grade;
 		$grade .= 'k';
@@ -170,7 +170,7 @@ while (my @row = $sfh->fetchrow_array)  {
 	# Get strength right
 	
 	my $strength = ($rating - $shodan) / $onestone;
-	my $sc = (!$reliable || $strength < -17.0)? ' class="ur"' : '';
+	my $sc = $strength < -17.0? ' class="ur"' : '';
 	
 	if ($strength < -0.5)  {
 		$strength = -20.0 if $strength < -20.0;

@@ -24,6 +24,15 @@ unless ($Database)  {
 	exit 11;
 }
 
+# Get the last shodan rating and one stone from the calibration
+
+$sfh = $Database->prepare("SELECT shodan,onestone FROM calibration ORDER BY cdate DESC LIMIT 1");
+$sfh->execute;
+if (my @row = $sfh->fetchrow_array) {
+	$shodan = $row[0];
+	$onestone = $row[1];
+}
+
 # Generate possible promotion candidates
 # First get the current folk their max rank and when they achieved it.
 
@@ -40,11 +49,12 @@ while (my @row = $sfh->fetchrow_array)  {
 # Look at the results for people whose strength is 0.5D or better
 # and the tourney date
 
-$sfh = $Database->prepare("SELECT first,last,pin,strength,since,ltcode FROM player WHERE changes=1 AND strength > -0.5 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY last,first");
+$sfh = $Database->prepare("SELECT first,last,pin,rating,since,ltcode FROM player WHERE changes=1 AND rank > -1 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY last,first");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
-	my ($first,$last,$pin,$strength,$since,$lt) = @row;
+	my ($first,$last,$pin,$rating,$since,$lt) = @row;
+	my $strength = ($rating - $shodan) / $onestone;
 	my $name = "$first $last";
 	my $target = - 0.5;
 	$target = $Dancerts{$name}->{RANK} + 0.5 if defined $Dancerts{$name};

@@ -7,13 +7,6 @@
 use DBD::mysql;
 use File::Copy;
 use File::Compare;
-use Time::Local;
-
-sub Mysqldate_to_gmtime {
-	my $mdate = shift;
-	my ($yr,$mon,$day) = $mdate =~ /(\d{4})-(\d\d)-(\d\d)/;
-	timegm(0,0,12,$day,$mon-1,$yr);
-}
 
 sub Tourn_date {
 	my $tcode = shift;
@@ -30,7 +23,6 @@ sub Tourn_date {
 $EGD_source = "http://www.europeangodatabase.eu/EGD/EGD_2_0/downloads";
 $EGD_file = "alleuro_lp.html";
 $old_file = "alleuro_lp.html.save";
-my $reliable_calibration_time = 60*60*24*35;
 
 # This is the directory where we work in
 
@@ -76,7 +68,7 @@ unless ($Database)  {
 	exit 11;
 }
 
-$sfh = $Database->prepare("select tcode,tdate from tournament");
+$sfh = $Database->prepare("SELECT tcode,tdate FROM tournament");
 $sfh->execute;
 
 # We read the date straight in as MySQL format as that's what we plug in
@@ -84,17 +76,6 @@ $sfh->execute;
 while (my @row = $sfh->fetchrow_array)  {
 	my ($tcode, $tdate) = @row;
 	$Tourn_dates_my{$tcode} = $tdate;
-}
-
-# Now repeat that for the calibration data
-
-$sfh = $Database->prepare("select cdate,shodan,onestone from calibration order by cdate");
-$sfh->execute;
-
-while (my @row = $sfh->fetchrow_array)  {
-	my ($cdate, $shodan, $onestone) = @row;
-	my $gdate = Mysqldate_to_gmtime($cdate);
-	push @Calibrations, {MD => $cdate, GD => $gdate, SH => $shodan+0, ONE => $onestone+0.0 };	
 }
 
 # Open grabbed file for reading.
@@ -133,44 +114,23 @@ while (<EGDF>)  {
 		$since = Tourn_date($lt);
 	}
 	
-	# Get that in gmtime format
-	# Calculate strength
-	
-	my $since_gm = Mysqldate_to_gmtime($since);
-	
-	my $ctindex = 0;	# Index in calibrations array
-	my $min_distance = abs($Calibrations[$ctindex]->{GD} - $since_gm);
-	my $next_index = 0;
-    for my $cal (@Calibrations) {
-    	my $dist = abs($cal->{GD} - $since_gm);
-    	if ($dist < $min_distance)  {
-    		$ctindex = $next_index;
-    		$min_distance = $dist;
-    	}
-    	$next_index++;
-    }
-    my $cal = $Calibrations[$ctindex];
-    my $strength = ($gor - $cal->{SH})/$cal->{ONE};
-    $strength = sprintf "%.1f", $strength;
-    my $reliable = $min_distance < $reliable_calibration_time ? 1 : 0;
     my $qclub = $Database->quote($club);
 	my $qlt = $Database->quote($lt);
     my $qsince = $Database->quote($since);
 	
-	$sfh = $Database->prepare("select rank,rating,club,pin,ntourn,ltcode from player where first=$qfirst and last=$qlast");
+	$sfh = $Database->prepare("SELECT rank,rating,club,pin,ntourn,ltcode FROM player WHERE first=$qfirst AND last=$qlast");
 	$sfh->execute;
 	my @row = $sfh->fetchrow_array;
 	if (@row)  {
 		my ($dbrank,$dbrating,$dbclub,$dbpin,$dbnt,$dblt) = @row;
 		if ($dbrank != $grade || $dbrating != $gor || $dbclub ne $club || $dbpin != $pin || $dbnt != $nt || $dblt ne $lt)  {
-			$sfh = $Database->prepare("update player set changes=1,rank=$grade,rating=$gor,club=$qclub,pin=$pin,ntourn=$nt,ltcode=$qlt,reliable=$reliable,strength=$strength,since=$qsince where first=$qfirst and last=$qlast");
+			$sfh = $Database->prepare("UPDATE player SET changes=1,rank=$grade,rating=$gor,club=$qclub,pin=$pin,ntourn=$nt,ltcode=$qlt,since=$qsince WHERE first=$qfirst AND last=$qlast");
 		}
 	}
 	else  {
-		$sfh = $Database->prepare("insert into player (first,last,rank,strength,rating,club,since,pin,ntourn,reliable,ltcode,changes) values ($qfirst,$qlast,$grade,$strength,$gor,$qclub,$qsince,$pin,$nt,$reliable,$qlt,1)");		
+		$sfh = $Database->prepare("INSERT into PLAYER (first,last,rank,rating,club,since,pin,ntourn,ltcode,changes) VALUES ($qfirst,$qlast,$grade,$gor,$qclub,$qsince,$pin,$nt,$qlt,1)");		
 	}
 	$sfh->execute;
 }
 
 exit 1;
-
