@@ -98,4 +98,4 @@ fi
 
 # Reset changed marker (don't bother for now until we're happy)
 
-# ./resetchanged.pl
+./resetchanged.pl
