@@ -128,7 +128,7 @@ while (<EGDF>)  {
 		}
 	}
 	else  {
-		$sfh = $Database->prepare("INSERT into PLAYER (first,last,rank,rating,club,since,pin,ntourn,ltcode,changes) VALUES ($qfirst,$qlast,$grade,$gor,$qclub,$qsince,$pin,$nt,$qlt,1)");		
+		$sfh = $Database->prepare("INSERT INTO player (first,last,rank,rating,club,since,pin,ntourn,ltcode,changes) VALUES ($qfirst,$qlast,$grade,$gor,$qclub,$qsince,$pin,$nt,$qlt,1)");		
 	}
 	$sfh->execute;
 }
