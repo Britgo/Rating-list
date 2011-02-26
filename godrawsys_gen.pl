@@ -32,9 +32,7 @@ unless (open(GDS, ">$Outfile"))  {
 }
 select GDS;
 
-print <<END;
-NAME-FG GRADE   CLUB    COUNTRY RATING
-END
+print "NAME-FG\tGRADE\tCLUB\tCOUNTRY\tRATING\r\n";
 
 # Now grab list in alphabetical order
 
@@ -43,7 +41,7 @@ $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
 	my ($first,$last,$grade,$rating,$club) = @row;
-	my $name = "$first $last";
+	my $name = "$last $first";
 	$name =~ tr/_/ /;
 	$name =~ s/\s{2,}/ /g;
 	$name =~ s/\s+$//;
@@ -61,5 +59,5 @@ while (my @row = $sfh->fetchrow_array)  {
 		$grade = -$grade;
 		$grade .= "k";
 	}
-	print "$name\t$grade\t$club\tUK\t$rating\n";
+	print "$name\t$grade\t$club\tUK\t$rating\r\n";
 }
