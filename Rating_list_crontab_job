@@ -94,7 +94,7 @@ fi
 
 # Update godrawsys table
 
-./godrawsys_gen.pl >>UPDATE_ERRORS
+# ./godrawsys_gen.pl >>UPDATE_ERRORS
 
 # Reset changed marker (don't bother for now until we're happy)
 
