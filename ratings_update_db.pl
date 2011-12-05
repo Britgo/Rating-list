@@ -92,8 +92,6 @@ while (<EGDF>)  {
 	next unless $count eq 'UK';
 	next unless $name =~ /^(\S+)\s(\S+)$/;
 	my ($first, $last) = ($2,$1);
-	my $qfirst = $Database->quote($first);
-	my $qlast = $Database->quote($last);
 	if ($gradeletter eq 'k')  {
 		$grade = - $grade;
 	}
@@ -118,13 +116,15 @@ while (<EGDF>)  {
 	my $qlt = $Database->quote($lt);
     my $qsince = $Database->quote($since);
 	
-	$sfh = $Database->prepare("SELECT rank,rating,club,pin,ntourn,ltcode FROM player WHERE first=$qfirst AND last=$qlast");
+	$sfh = $Database->prepare("SELECT first,last,rank,rating,club,ntourn,ltcode FROM player WHERE pin=$pin");
 	$sfh->execute;
 	my @row = $sfh->fetchrow_array;
 	if (@row)  {
-		my ($dbrank,$dbrating,$dbclub,$dbpin,$dbnt,$dblt) = @row;
-		if ($dbrank != $grade || $dbrating != $gor || $dbclub ne $club || $dbpin != $pin || $dbnt != $nt || $dblt ne $lt)  {
-			$sfh = $Database->prepare("UPDATE player SET changes=1,rank=$grade,rating=$gor,club=$qclub,pin=$pin,ntourn=$nt,ltcode=$qlt,since=$qsince WHERE first=$qfirst AND last=$qlast");
+		my ($dbfirst, $dblast, $dbrank, $dbrating, $dbclub, $dbnt, $dblt) = @row;
+		if ($dbfirst != $first || $dblast != $last || $dbrank != $grade || $dbrating != $gor || $dbclub ne $club || $dbnt != $nt || $dblt ne $lt)  {
+			$qfirst = $Database->quote($first);
+			$qlast = $Database->quote($last);
+			$sfh = $Database->prepare("UPDATE player SET changes=1,first=$qfirst,last=$qlast,rank=$grade,rating=$gor,club=$qclub,ntourn=$nt,ltcode=$qlt,since=$qsince WHERE pin=$pin");
 		}
 	}
 	else  {
