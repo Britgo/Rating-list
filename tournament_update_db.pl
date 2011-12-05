@@ -81,7 +81,7 @@ while (<EGDF>)  {
 	# This pattern matches a tournment code/class/country/description
 	# if it doesn't match go onto the next record
 	
-	next unless /^\s+([A-Z]\d{6}[A-Z]?)\s+([ABC])\s+(\d+)\s+(\d+)\(([A-Z][A-Z])\)\s+(.*)/;
+	next unless /^\s+([A-Z]\d{6}[A-Z]?)\s+([ABC])\s+(\d+)\s+(\d+)\s+\(([A-Z][A-Z])\)\s+(.*)/;
 	
 	# Remember matched bits
 	
