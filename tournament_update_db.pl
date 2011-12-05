@@ -81,11 +81,11 @@ while (<EGDF>)  {
 	# This pattern matches a tournment code/class/country/description
 	# if it doesn't match go onto the next record
 	
-	next unless /^\s+([A-Z]\d{6}[A-Z]?)\s+([ABC])\s+\(([A-Z][A-Z])\)\s+(.*)/;
+	next unless /^\s+([A-Z]\d{6}[A-Z]?)\s+([ABC])\s+(\d+)\s+(\d+)\(([A-Z][A-Z])\)\s+(.*)/;
 	
 	# Remember matched bits
 	
-	my ($code,$class,$count,$descr) = ($1,$2,$3,$4);
+	my ($code,$class,$nrounds,$nplayers,$count,$descr) = ($1,$2,$3,$4,$5,$6);
 	
 	# Decode date from tournament code
 	
