@@ -50,10 +50,6 @@ END
 	print "$lastt\n";
 }
 
-my $ratdir = '/var/www/bgasite/ratings';
-my $qualfile_name = 'qualifiers.html';
-my $qualfile_year = "qualifiers$Champ_year.html";
-
 @month_full_names = qw/January February March April May June July August September October November December/;
 
 # Get the qualifying year as the argument otherwise default
@@ -67,6 +63,10 @@ if ($Qualyear < 2010)  {
 	$Qualyear++ if $tbits[4] >= 3;
 }
 $Champ_year = $Qualyear + 1;
+
+my $ratdir = '/var/www/bgasite/ratings';
+my $qualfile_name = 'qualifiers.html';
+my $qualfile_year = "qualifiers$Champ_year.html";
 
 # Open the database
 
