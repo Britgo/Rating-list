@@ -177,4 +177,4 @@ select STDOUT;
 close QUAL;
 
 unlink "$ratdir/$qualfile_name";
-symlink $qualfile_year, "$ratdir/$qualfile_name";
+symlink "./$qualfile_year", "$ratdir/$qualfile_name";
