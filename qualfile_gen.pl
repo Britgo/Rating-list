@@ -50,8 +50,10 @@ END
 	print "$lastt\n";
 }
 
+my $ratdir = '/var/www/bgasite/ratings';
+my $qualfile_name = 'qualifiers.html';
+my $qualfile_year = "qualifiers$Champ_year.html";
 
-my $qualifiers_list = '/var/www/bgasite/ratings/qualifiers.html';
 @month_full_names = qw/January February March April May June July August September October November December/;
 
 # Get the qualifying year as the argument otherwise default
@@ -88,8 +90,8 @@ while (my @row = $sfh->fetchrow_array)  {
 
 # Now create the qualifiers list.
 
-unless (open(QUAL, ">$qualifiers_list"))  {
-	print STDERR "Cannot open output file '$qualifiers_list'\n";
+unless (open(QUAL, ">$ratdir/$qualfile_year"))  {
+	print STDERR "Cannot open output file '$qualfile_year'\n";
 	exit 20;
 }
 
@@ -122,18 +124,19 @@ have to ask the web team. -->
 <a href="http://www.europeangodatabase.eu/EGD/EGF_rating_system.php">European rating list</a>
 up to $cal_date.</p>
 
-<p><strong>This page only checks the rating part of the qualification conditions.
-It is unable to check the &#8216;played in all rounds&#8217; rule and
-the nationality and BGA membership rules.
-Manual confirmation is needed that you have qualified.</strong></p>
-
 <p>The list shows players from the UK rating list who either first achieved an EGF rating at or
-above 1900 in $Qualyear after 
+above 1900 between the beginning of April $Qualyear and the end of March $Champ_year after 
 the tournament(s) shown against their name.
 Click the name link to see their rating graph.
 Click the tournament name link to see the results table.</p>
 
+<p><strong>Additional Championship rules are that a player must have played
+in all rounds of a tournament for a qualification,
+belong to the BGA and be British or have satisfied the residency requirements.
+This list may include people who do not qualify when these rules are taken into account.</strong></p>
+
 <ul>
+
 END
 
 # This is a database query to fetch the tournament codes and get the players name from the pin
@@ -169,3 +172,9 @@ print <<END;
 
 <p>Total $count qualifiers.</p>
 END
+
+select STDOUT;
+close QUAL;
+
+unlink "$ratdir/$qualfile_name";
+symlink $qualfile_year, "$ratdir/$qualfile_name";
