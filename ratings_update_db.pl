@@ -122,12 +122,14 @@ while (<EGDF>)  {
 	if (@row)  {
 		my ($dbfirst, $dblast, $dbrank, $dbrating, $dbclub, $dbnt, $dblt) = @row;
 		if ($dbfirst != $first || $dblast != $last || $dbrank != $grade || $dbrating != $gor || $dbclub ne $club || $dbnt != $nt || $dblt ne $lt)  {
-			$qfirst = $Database->quote($first);
-			$qlast = $Database->quote($last);
+			my $qfirst = $Database->quote($first);
+			my $qlast = $Database->quote($last);
 			$sfh = $Database->prepare("UPDATE player SET changes=1,first=$qfirst,last=$qlast,rank=$grade,rating=$gor,club=$qclub,ntourn=$nt,ltcode=$qlt,since=$qsince WHERE pin=$pin");
 		}
 	}
 	else  {
+		my $qfirst = $Database->quote($first);
+		my $qlast = $Database->quote($last);
 		$sfh = $Database->prepare("INSERT INTO player (first,last,rank,rating,club,since,pin,ntourn,ltcode,changes) VALUES ($qfirst,$qlast,$grade,$gor,$qclub,$qsince,$pin,$nt,$qlt,1)");		
 	}
 	$sfh->execute;
