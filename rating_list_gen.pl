@@ -231,7 +231,7 @@ if ($#Uckeys >= 0)  {
 The rating list generation routine hit the following unknown club codes:
 
 END
-       print MG join('\n', @Uckeys);
+       print MG join("\n", @Uckeys);
         print MG "\nThey have been put in with Unknown club for the time being.\n";
         close MG;
     }
