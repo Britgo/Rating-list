@@ -197,6 +197,7 @@ while (my @row = $sfh->fetchrow_array)  {
 	}
 	else {
 		$clubc = "Unknown: $clubc";
+		$Unknown_clubs{$clubc} = 1;
 	}
 	print <<END;
 <tr>
@@ -221,4 +222,19 @@ an average number of European rating points per one grade difference (<var>g</va
 <p>Strength is calculated using <var>strength</var> = (<var>rating</var> - <var>r</var>) / <var>g</var>. The <a href="http://www.britgo.org/ratings/krfaq.html#techie">technical section of the FAQ</a> contains a more detailed explanation.</p>
 
 END
+
+@Uckeys = sort keys %Unknown_clubs;
+
+if ($#Uckeys >= 0)  {
+    if  (open(MG, "|mail -s 'Unknown club codes' geoff\@kaniuk.co.uk jmc\@xisl.com"))  {
+        print MG <<END;
+The rating list generation routine hit the following unknown club codes:
+
+END
+       print MG join('\n', @Uckeys);
+        print MG "\nThey have been put in with Unknown club for the time being.\n";
+        close MG;
+    }
+}
+
 exit 0;
