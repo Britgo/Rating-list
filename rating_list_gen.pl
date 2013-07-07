@@ -6,11 +6,26 @@
 
 use DBD::mysql;
 use Time::Local;
+use Getopt::Long;
 
 sub Mysqldate_to_gmtime {
 	my $mdate = shift;
 	my ($yr,$mon,$day) = $mdate =~ /(\d{4})-(\d\d)-(\d\d)/;
 	timegm(0,0,12,$day,$mon-1,$yr);
+}
+
+$rating_list_file = "list";
+$limit = 0;
+
+GetOptions("output=s" => \$rating_list_file, "limit=i" => \$limit);
+
+$rating_list_file .= '.html' unless $rating_list_file =~ /\.html$/;
+$rating_list_file = "/var/www/bgasite/ratings/$rating_list_file" unless $rating_list_file =~ m;/;;
+if  ($limit > 0)  {
+    $limit = " LIMIT $limit";
+}
+else {
+    $limit = "";
 }
 
 @month_names = qw/Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec/;
@@ -19,7 +34,6 @@ sub Mysqldate_to_gmtime {
 # This is the directory where we work in
 
 $rating_scripts = "/var/www/ratings/scripts";
-$rating_list_file = "/var/www/bgasite/ratings/list.html";
 
 # Select that directory in case of any doubt
 
@@ -145,7 +159,7 @@ END
 
 # Loop over players
 
-$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,since,ltcode,ntourn,club FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last");
+$sfh = $Database->prepare("SELECT first,last,pin,rank,rating,since,ltcode,ntourn,club FROM player WHERE suppress=0 AND since >= DATE_SUB(CURRENT_DATE, INTERVAL 2 YEAR) ORDER BY rating desc,last$limit");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {

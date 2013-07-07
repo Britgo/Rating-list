@@ -82,9 +82,10 @@ then
 	echo "`date '+%d/%m/%y %T'`:Aborting Ratings update" >>UPDATE_ERRORS
 fi
 
-# Now generate rating list
+# Now generate rating list and top 20 list
 
 ./rating_list_gen.pl >>UPDATE_ERRORS
+./rating_list_gen.pl --output=top --limit=20 >>UPDATE_ERRORS
 
 # Note possible promotions and qualifications for the championship
 
