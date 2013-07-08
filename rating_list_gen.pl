@@ -16,8 +16,9 @@ sub Mysqldate_to_gmtime {
 
 $rating_list_file = "list";
 $limit = 0;
+my $reduced;
 
-GetOptions("output=s" => \$rating_list_file, "limit=i" => \$limit);
+GetOptions("output=s" => \$rating_list_file, "limit=i" => \$limit, "reduced" => \$reduced);
 
 $rating_list_file .= '.html' unless $rating_list_file =~ /\.html$/;
 $rating_list_file = "/var/www/bgasite/ratings/$rating_list_file" unless $rating_list_file =~ m;/;;
@@ -104,10 +105,25 @@ $cal_date = "$cal_day$cal_th $cal_month $cal_year";
 select RL;
 
 print <<END;
-<p>This is based on the
+<div style="text-align: center;">(Based on the
 <a href="http://www.europeangodatabase.eu/EGD/EGF_rating_system.php">European rating list</a>
-of $cal_date.</p>
+of $cal_date.)</div>
+END
 
+if  ($reduced)  {
+    print <<END;
+<table border="1" cellpadding="4" id="ratingtable">
+<tr>
+  <th class="l">Name</th>
+  <th>Grade</th>
+  <th>Rating</th>
+  <th>Strength</th>
+  <th class="l">Club</th>
+</tr>
+END
+}
+else  {
+    print <<END;
 <p>The <a href="http://www.britgo.org/ratings/krfaq.html">ratings FAQ</a> explains this table, and how to use the information it contains.</p>
 
 <p>You can get a graph of a player&#8217;s rating history by clicking on their name in the list below.
@@ -156,6 +172,7 @@ head or foot of the column.</p>
 
 <tbody id="ratingdata">
 END
+}
 
 # Loop over players
 
@@ -219,15 +236,21 @@ while (my @row = $sfh->fetchrow_array)  {
   <td$gc>$grade</td>
   <td>$rating</td>
   <td$sc>$strength</td>
-  <td>$since</td>
-  <td class="l">$clubc</td>
-  <td>$nt</td>
-</tr>
 END
-
+       print "<td>$since</td>\n" unless $reduced;
+        print "<td class=\"l\">$clubc</td>\n";
+        print "<td>$nt</td>\n" unless $reduced;
+        print "</tr>\n";
 }
 
-print <<END;
+if  ($reduced)  {
+    print <<END;
+</table>
+
+END
+}
+else  {
+    print <<END;
 </tbody></table>
 
 <p>On the last run, an average European shodan rating (<var>r</var>) is $shodan, and
@@ -236,6 +259,7 @@ an average number of European rating points per one grade difference (<var>g</va
 <p>Strength is calculated using <var>strength</var> = (<var>rating</var> - <var>r</var>) / <var>g</var>. The <a href="http://www.britgo.org/ratings/krfaq.html#techie">technical section of the FAQ</a> contains a more detailed explanation.</p>
 
 END
+}
 
 @Uckeys = sort keys %Unknown_clubs;
 

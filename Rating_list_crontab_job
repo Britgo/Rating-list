@@ -85,7 +85,7 @@ fi
 # Now generate rating list and top 20 list
 
 ./rating_list_gen.pl >>UPDATE_ERRORS
-./rating_list_gen.pl --output=top --limit=20 >>UPDATE_ERRORS
+./rating_list_gen.pl --output=top --limit=20 --reduced >>UPDATE_ERRORS
 
 # Note possible promotions and qualifications for the championship
 
