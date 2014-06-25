@@ -264,7 +264,7 @@ END
 @Uckeys = sort keys %Unknown_clubs;
 
 if ($#Uckeys >= 0)  {
-    if  (open(MG, "|mail -s 'Unknown club codes' geoff\@kaniuk.co.uk jmc\@xisl.com"))  {
+    if  (open(MG, "|mail -s 'Unknown club codes' jmc\@toad.me.uk"))  {
         print MG <<END;
 The rating list generation routine hit the following unknown club codes:
 
