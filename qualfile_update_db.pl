@@ -17,7 +17,7 @@ sub Mysqldate_to_gmtime {
 # Read the list of tournaments and dates
 # We need read/write as we are resetting the "changed" flag.
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rlupd", "RL update");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
 
 unless ($Database)  {
 	print STDERR "Cannot open rating list database\n";

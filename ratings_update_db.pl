@@ -61,7 +61,7 @@ exit 0 if compare($EGD_file, $old_file) == 0;
 # Open the database
 # Read the list of tournaments and dates
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rlupd", "RL update");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
 
 unless ($Database)  {
 	print STDERR "Cannot open rating list database\n";

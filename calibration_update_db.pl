@@ -53,7 +53,7 @@ exit 0 if compare($EGD_file, $old_file) == 0;
 # OK open the database
 # FIXME set user name and password to allow SELECT and INSERT ops
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rlupd", "RL update");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
 
 unless ($Database)  {
 	print "Cannot open rating list database\n";

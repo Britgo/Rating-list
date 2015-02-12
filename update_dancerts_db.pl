@@ -6,7 +6,7 @@ $df = shift @ARGV;
 die "No file name given\n" unless $df;
 open(DF, $df) or die "Cannot open $df\n";
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rlupd", "RL update");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
 die "Cannot open database\n" unless $Database;
 $sfh = $Database->prepare("delete from dancerts");
 $sfh->execute;

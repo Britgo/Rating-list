@@ -6,7 +6,7 @@
 
 use DBD::mysql;
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rlupd", "RL update");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
 
 $sfh = $Database->prepare("UPDATE player SET changes=0");
 $sfh->execute;

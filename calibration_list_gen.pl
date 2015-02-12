@@ -23,7 +23,7 @@ unless (chdir $rating_scripts)  {
 
 # OK open the database
 
-$Database = DBI->connect("DBI:mysql:ratinglist:britgo.org", "rluser", "Get Ratings");
+$Database = DBI->connect("DBI:mysql:ratinglist", "rluser", "Get Ratings");
 
 unless ($Database)  {
 	print "Cannot open rating list database\n";
