@@ -30,6 +30,7 @@ catch (Rlerr $e)  {
     $mess = $e->getMessage();
 	exit(0);
 }
+include 'php/head.php';
 ?>
 <body>
 <script language="javascript" src="webfn.js"></script>

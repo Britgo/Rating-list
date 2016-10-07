@@ -22,70 +22,44 @@
 include 'php/session.php';
 include 'php/rlerr.php';
 include 'php/opendb.php';
-include 'php/checklogged.php';
+
+if  (!isset($_GET['uid']))  {
+    $mess = "No user given";
+    include 'php/wrongentry.php';
+    exit(0);
+}
+
+$deluser = $_GET['uid'];
 
 try {
    opendb();
 }
-catch (Rlerr $e) {
-   $Title = $e->Header;
+catch (Rlerr $e)  {
+   $Title = "Delete error ";
    $mess = $e->getMessage();
    include 'php/generror.php';
    exit(0);
 }
-
-$ret = mysql_query("SELECT user,email FROM logins ORDER BY user");
-if (!$ret)  {
+$quid = mysql_real_escape_string($deluser);
+$ret = mysql_query("DELETE FROM logins WHERE user='$quid'");
+if  (!$ret) {
     $Title = "Database error";
     $mess = mysql_error();
     include 'php/generror.php';
     exit(0);
 }
-
-$Title = "List of admin logins";
+$Title = "Deleted OK";
 include 'php/head.php';
 ?>
-<body>
-<script language="javascript" src="webfn.js"></script>
-<script language="javascript">
-function okdel(name, url)  {
-   if  (!confirm("Do you really want to delete admin " + name + " from the rating list system"))
-      return;
-   document.location = "dellogin.php?uid=" + url;
-}
-</script>
-<h1>Admin logins on rating list system</h1>
-<table cellpadding="3" cellspacing="5">
-<tr>
-   <th>User</th>
-   <th>Email</th>
-   <th>Actions</th>
-</tr>
+<body onload="javascript:window.location = document.referrer;">
+<h1>Deleted OK</h1>
 <?php
-while  ($row = mysql_fetch_assoc($ret))  {
-    $u = $row['user'];
-    $em = $row['email'];
-    $qu = htmlspecialchars($u);
-    $qem = htmlspecialchars($em);
-    $eu = urlencode($u);
-    print <<<EOT
-<tr>
-    <td>$qu</td>
-    <td>$qem</td>
-    <td><a href="updlogin.php?$eu" title="Update details for this login">Update</a>
-EOT;
-    if ($u != $userid)
-        print <<<EOT
-&nbsp;<a href="javascript:okdel('$qu', '$eu');" title="Remove this loog from the system">Delete</a>
-EOT;
-    print <<<EOT
-</td>
-</tr>
+print <<<EOT
+<p>The user entry $deluser has been deleted successfully.</p>
 
 EOT;
-}
 ?>
-</table>
-<p>Please <a href="index.php">Click here</a> to return to the admin page or <a href="newacct.php">click here</a> to add a new login to the system.</p>
+<p>Please <a href="index.php">Click here</a> to return to the admin page or
+<a href="logins.php">here</a> to go back to the previous page.</p>
 </body>
 </html>

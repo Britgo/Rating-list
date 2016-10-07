@@ -3,7 +3,7 @@ e2c.convert_num: 0
 openfiles: /home/jmc/src/Websites/ratingscripts/allqual_upd_db.pl:1010:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/checklogged.php:1413:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/session.php:1397:0:0:
-openfiles: /home/jmc/src/Websites/ratingscripts/index.php:1074:0:0:
+openfiles: /home/jmc/src/Websites/ratingscripts/index.php:1633:276:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/rlerr.php:1089:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/login.php:1405:121:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/newaccemail.php:1293:0:0:
@@ -12,7 +12,8 @@ openfiles: /home/jmc/src/Websites/ratingscripts/webfn.js:1392:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/rempwbyuid.php:1209:506:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/newacct2.php:2086:1176:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/wrongentry.php:0:0:0:
-openfiles: /home/jmc/src/Websites/ratingscripts/logins.php:2194:1351:1:
+openfiles: /home/jmc/src/Websites/ratingscripts/logins.php:1828:577:1:
+openfiles: /home/jmc/src/Websites/ratingscripts/newacct.php:1237:0:0:
 snr_recursion_level: 5
 convertcolumn_horizontally: 0
 adv_open_matchname: 0
@@ -25,7 +26,7 @@ view_left_panel: 1
 bookmarks_filename_mode: 0
 e2c.convert_xml: 1
 c2e.convert_iso: 0
-opendir: file:///home/jmc/src/Websites/messaging/admin
+opendir: file:///home/jmc/src/Websites/ratingscripts
 wrap_text_default: 0
 default_mime_type: text/plain
 snr_casesens: 0
@@ -55,7 +56,6 @@ recent_files: file:///home/jmc/src/Websites/ratingscripts/php/opendb.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/login.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/php/generror.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/logout.php
-recent_files: file:///home/jmc/src/Websites/ratingscripts/newacct.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/php/newaccemail.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/php/nameclash.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/webfn.js
@@ -63,6 +63,7 @@ recent_files: file:///home/jmc/src/Websites/ratingscripts/rempwbyuid.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/newacct2.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/php/wrongentry.php
 recent_files: file:///home/jmc/src/Websites/messaging/admin/mlists.php
+recent_files: file:///home/jmc/src/Websites/ratingscripts/newacct.php
 snr_replacetype: 0
 savedir: file:///home/jmc/src/Websites/ratingscripts
 spell_check_default: 1
@@ -84,10 +85,10 @@ e2c.convert_special: 0
 autoindent: 1
 adv_open_recursive: 0
 recent_dirs: file:///home/jmc
-recent_dirs: file:///home/jmc/src/Websites/ratingscripts
 recent_dirs: file:///home/jmc/src/Websites/ratingscripts/php
 recent_dirs: file:///home/jmc/src/Websites/messaging
 recent_dirs: file:///home/jmc/src/Websites/messaging/admin
+recent_dirs: file:///home/jmc/src/Websites/ratingscripts
 filegloblist: *.txt
 filegloblist: *.shtml
 filegloblist: *.py
