@@ -36,6 +36,7 @@ if ($logged_in)  {
 <ol>
 <li><a href="clubs.php">Click here to update club codes.</a></li>
 <li><a href="players.php">Click here to amend the players list.</a></li>
+<li><a href="logins.php">Click here to adjust the list of admins.</a></li>
 <li><a href="logout.php">Log out</a>.</li>
 </ol>
 
