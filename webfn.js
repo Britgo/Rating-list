@@ -41,5 +41,5 @@ function lostpw() {
 		 alert("No userid given");
        return;
    }
-   window.open("/admin/rempwbyuid.php?uid=" + l, "Password Reminder", "width=450,height=200,resizeable=yes,scrollbars=yes");
+   window.open("rempwbyuid.php?uid=" + l, "Password Reminder", "width=450,height=200,resizeable=yes,scrollbars=yes");
 }

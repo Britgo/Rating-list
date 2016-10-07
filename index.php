@@ -43,11 +43,11 @@ EOT;
 }
 else  {
    $Title = "You need to log in";
-   include 'hp/head.php';
+   include 'php/head.php';
    print <<<EOT
 <body>
 <script language="javascript" src="webfn.js"></script>
-<h1>Mailing System Administration login</h1>
+<h1>Ratings Administration login</h1>
 <form name="lifm" action="login.php" method="post" enctype="application/x-www-form-urlencoded">
 
 <p>Please log in with your user name <input type="text" name="user_id" id="user_id" size="10">
