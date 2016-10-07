@@ -22,16 +22,12 @@
 include 'php/session.php';
 include 'php/rlerr.php';
 
-$msg = "";
-if (isset($_GET['msg']))
-   $msg = " <b>" . $_GET['msg'] . "</b>";
-
 if ($logged_in)  {
    $Title = "Rating System Administration";
    include 'php/head.php';
    print <<<EOT
 <body>
-<h1>Mailing System Administration</h1>
+<h1>Rating list system Administration</h1>
 <p>Please select one of the following options.</p>
 <ol>
 <li><a href="clubs.php">Click here to update club codes.</a></li>
