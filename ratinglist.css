@@ -1,0 +1,445 @@
+#sddm {
+	margin: 0;
+	padding: 0;
+	z-index: 30;
+}
+
+#sddm li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: left;
+}
+
+#sddm li a {
+	display: block;
+	margin-bottom: 20px;
+	padding: 4px 4px;
+	width: 90px;
+	background: #857B1B;
+	color: #FFFFFF;
+	text-align: center;
+	text-decoration: none;
+}
+
+#sddm li a.admin {
+	display: block;
+	margin-bottom: 20px;
+	padding: 4px 4px;
+	width: 90px;
+	background: #D53B3B;
+	color: #FFFFFF;
+	text-align: center;
+	text-decoration: none;
+}
+
+#sddm li a:hover {
+	background: #FFC000;
+	text-decoration: none;
+}
+
+#sddm li a.admin:hover {
+	background: #FFFFD3;
+	color: #D53B3B;
+	text-decoration: none;
+}
+
+#sddm div {
+	position: absolute;
+	visibility: hidden;
+	margin-left: 60px;
+	padding: 0;
+	background: #EAEBD8;
+	border: 1px solid #000000;
+}
+
+#sddm div a {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 5px 5px;
+	width: auto;
+	white-space: nowrap;
+	text-align: left;
+	text-decoration: none;
+	background: #857B1B;
+	color: #FFFFFF;
+}
+
+#sddm div a:hover {
+	color: #000000;
+	background: #FFFFD3;
+}
+
+a.admin:active {
+	color: #51995C;
+	font-size: 8pt;
+}
+a.admin:link {
+	color: #51995c;
+	font-size: 8pt;
+}
+a.admin:visited {
+	color: #51995c;
+	font-size: 8pt;
+}
+
+a.memb:active {
+	color: #D53B3B;
+}
+a.memb:link {
+	color: #D53B3B;
+}
+a.memb:visited {
+	color: #D53B3B;
+}
+a.message:active {
+	color: #3333FF;
+}
+a.message:link {
+	color: #3333FF;
+}
+a.message:visited {
+	color: #3333FF;
+}
+a.news:active {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.news:link {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.news:visited {
+	font-weight: bolder;
+	color: #F01EBE;
+}
+a.name:active {
+	color: #7718EB;
+	text-decoration: none;
+}
+a.name:hover {
+	text-decoration: underline;
+	color: #7718EB;
+}
+a.name:link {
+	color: black;
+	text-decoration: none;
+}
+a.name:visited {
+	color: black;
+	text-decoration: none;
+}
+a.nound:active {
+	text-decoration: none;
+	color: black;
+}
+a.nound:hover {
+	color: black;
+	text-decoration: underline;
+}
+a.nound:link {
+	text-decoration: none;
+	color: black;
+}
+a.nound:visited {
+	text-decoration: none;
+	color: black;
+}
+a.noundm:active {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundm:hover {
+	color: #8C4857;
+	text-decoration: underline;
+}
+a.noundm:link {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundm:visited {
+	color: #8C4857;
+	text-decoration: none;
+}
+a.noundd:active {
+	color: #553999;
+	text-decoration: none;
+}
+a.noundd:hover {
+	color: #553999;
+	text-decoration: underline;
+}
+a.noundd:link {
+	color: #553999;
+	text-decoration: none;
+}
+a.noundd:visited {
+	color: #553999;
+	text-decoration: none;
+}
+a:active {
+	color: black;
+}
+a:link {
+	color: black;
+}
+a:visited {
+	color: black;
+}
+a.il:active {
+	color: #528652;
+}
+a.il:link {
+	color: #528652;
+}
+a.il:visited {
+	color: #528652;
+}
+
+a.headlink:active {
+	text-decoration: none;
+	font-size: large;
+}
+a.headlink:link {
+	text-decoration: none;
+	font-size: large;
+}
+a.headlink:visited {
+	text-decoration: none;
+	font-size: large;
+}
+a.aheadlink:active {
+	text-decoration: none;
+	font-size: large;
+	background-color: #857B1B;
+	color: #FFFFFF;
+}
+a.aheadlink:link {
+	text-decoration: none;
+	font-size: large;
+	background-color: #857B1B;
+	color: #FFFFFF;
+}
+a.aheadlink:visited {
+	text-decoration: none;
+	font-size: large;
+	background-color: #857B1B;
+	color: #FFFFFF;
+}
+a.oheadlink:active {
+	text-decoration: none;
+	font-size: large;
+	background-color: #32851B;
+	color: #FFFFFF;
+}
+a.oheadlink:link {
+	text-decoration: none;
+	font-size: large;
+	background-color: #32851B;
+	color: #FFFFFF;
+}
+a.oheadlink:visited {
+	text-decoration: none;
+	font-size: large;
+	background-color: #32851B;
+	color: #FFFFFF;
+}
+
+h1 {
+	color: #5F3D2C;
+	font-size: 18pt;
+}
+h2 {
+	color: #5f3d2c;
+	font-size: 16pt;
+}
+h3 {
+	color: #5f2d2c;
+	font-size: 14pt;
+}
+
+body {
+	background-color: #D3FFFF;
+	color: #000000;
+	text-align: left;
+	font-size: 12pt;
+	line-height: 1.2;
+	height: 100%;
+	max-height: 100%;
+	padding: 0;
+	border: 0;
+	overflow: auto;
+	margin: 10pt;
+}
+
+#Nav {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 150px;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: #000080;
+}
+#Content {
+	position: fixed;
+	top: 150px;
+	left: 0;
+	width: 100%;
+	overflow: auto;
+	bottom: 0;
+	right: 0;
+}
+
+.innertube {
+	margin: 10px;
+}
+p.note {
+	text-align: center;
+	font-size: 8pt;
+	line-height: 1.2;
+}
+p.smallnote {
+	text-align: left;
+	line-height: 1;
+	font-size: 8pt;
+}
+p.alarm {
+	color: #3476E6;
+}
+p.forms {
+	text-indent: 1.5cm;
+	line-height: 1.5cm;
+}
+p.forms2 {
+	line-height: .5cm;
+	text-indent: 1.5cm;
+}
+span.prom {
+	color: #428F48;
+}
+span.releg {
+	color: #EA484A;
+}
+span.alarm {
+	color: #FF0000;
+	font-size: 16pt;
+}
+span.hdr {
+	color: #0C0CDC;
+	font-size: large;
+}
+
+li.nav {
+	font-size: 8pt;
+	line-height: 1.2;
+}
+td.subind {
+	padding-left: 0.25in;
+	margin-left: 0.5in;
+	font-size: small;
+}
+table.admin {
+	empty-cells: show;
+	border-spacing: 5px;
+	padding: 2px;
+}
+table.clublist {
+	empty-cells: show;
+	border-spacing: 5px;
+	padding: 2px;
+}
+table.clubupd {
+	empty-cells: show;
+	border-spacing: 1px;
+	padding: 1px;
+}
+table.matchesd {
+	empty-cells: show;
+	border-spacing: 1px;
+	padding: 2px;
+}
+table.matchesosd {
+	empty-cells: show;
+	border-spacing: 3px;
+	padding: 4px;
+}
+table.matchesupd {
+	padding: 4px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.membpick {
+	empty-cells: show;
+	border-spacing: 2px;
+	padding: 2px;
+}
+table.plinits {
+	empty-cells: show;
+	border-spacing: 2px;
+	padding: 2px;
+	border: 0px;
+}
+table.pllist {
+	empty-cells: show;
+	border-spacing: 5px;
+	padding: 4px;
+}
+table.plupd {
+	empty-cells: show;
+	border-spacing: 2px;
+	padding: 1px;
+	border: 0px;
+}
+table.resultsb {
+	empty-cells: show;
+	border-spacing: 3px;
+	padding: 2px;
+}
+table.teamdisp {
+	padding: 2px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.teamsb {
+	padding: 2px;
+	border-spacing: 5px;
+	empty-cells: show;
+}
+table.teamsupdb {
+	padding: 2px;
+	border-spacing: 3px;
+	empty-cells: show;
+}
+table.updmatch {
+	padding: 2px;
+	border-spacing: 3px;
+	empty-cells: show;
+}
+table.updtmemb {
+	padding: 2px;
+	border-spacing: 2px;
+	empty-cells: show;
+}
+table.showmatch {
+	padding: 2px;
+	border-spacing: 2px;
+	empty-cells: show;
+}
+table.league {
+	padding-right: 5px;
+	padding-left: 5px;
+	border-style: solid;
+	border-spacing: 5px;
+	empty-cells: show;
+	border-color: #000000;
+	padding: 4px;
+	border-width: 1px;
+	border: solid;
+}
+table.news {
+	padding: 4px;
+	empty-cells: show;
+	border-spacing: 3px;
+}
