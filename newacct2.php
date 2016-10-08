@@ -84,10 +84,11 @@ include 'php/head.php';
 <?php 
 print <<<EOT
 <h1>$Title</h1>
-<p>Your account `$userid' has been successfully created and you should be receiving
-a confirmatory email with your password.</p>
+<p>Your account `$userid' has been successfully created and should be receiving
+a confirmatory email with the password.</p>
 
 EOT;
 ?>
+<p>Please <a href="index.html">click here to go back to the admin page or <a href="logins.php">here to go to the logins page.</p>
 </body>
 </html>

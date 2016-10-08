@@ -72,11 +72,11 @@ while  ($row = mysql_fetch_assoc($ret))  {
 <tr>
     <td>$qu</td>
     <td>$qem</td>
-    <td><a href="updlogin.php?$eu" title="Update details for this login">Update</a>
+    <td><a href="updlogin.php?uid=$eu" title="Update details for this login">Update</a>
 EOT;
     if ($u != $userid)
         print <<<EOT
-&nbsp;<a href="javascript:okdel('$qu', '$eu');" title="Remove this loog from the system">Delete</a>
+&nbsp;<a href="javascript:okdel('$qu', '$eu');" title="Remove this login from the system">Delete</a>
 EOT;
     print <<<EOT
 </td>

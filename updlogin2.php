@@ -19,48 +19,56 @@
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+include 'php/rlerr.php';
 include 'php/session.php';
 include 'php/checklogged.php';
-include 'php/rlerr.php';
 include 'php/opendb.php';
+include 'php/genpasswd.php';
+include 'php/newaccemail.php';
 
-if  (!isset($_GET['uid']))  {
-    $mess = "No user given";
-    include 'php/wrongentry.php';
-    exit(0);
-}
-
-$deluser = $_GET['uid'];
+$upduser = $_POST["userid"];
+$passw1 = $_POST["passw1"];
+$passw2 = $_POST["passw2"];
+$email = $_POST["email"];
 
 try {
-   opendb();
+	opendb();
 }
-catch (Rlerr $e)  {
-   $Title = "Delete error ";
+catch (Rlerr $e) {
+   $Title = $e->Header;
    $mess = $e->getMessage();
    include 'php/generror.php';
    exit(0);
 }
-$quid = mysql_real_escape_string($deluser);
-$ret = mysql_query("DELETE FROM logins WHERE user='$quid'");
-if  (!$ret) {
-    $Title = "Database error";
+
+if (strlen($passw1) == 0)
+    $passw1 = generate_password();
+
+$quserid = mysql_real_escape_string($upduser);
+$qpassw = mysql_real_escape_string($passw1);
+$qemail = mysql_real_escape_string($email);
+
+$ret = mysql_query("UPDATE logins SET password='$qpassw',email='$qemail' WHERE user='$quserid'");
+if (!$ret)  {
+    $Title = "Database update user error";
     $mess = mysql_error();
     include 'php/generror.php';
     exit(0);
 }
-$Title = "Deleted OK";
+
+newaccemail($email, $userid, $passw1);
+$Title = "Rating List Account Updated";
 include 'php/head.php';
 ?>
-<body onload="javascript:window.location = document.referrer;">
-<h1>Deleted OK</h1>
-<?php
+<body>
+<?php 
 print <<<EOT
-<p>The user entry $deluser has been deleted successfully.</p>
+<h1>$Title</h1>
+<p>The account `$userid' has been successfully updated and should be receiving
+a confirmatory email with the password.</p>
 
 EOT;
 ?>
-<p>Please <a href="index.php">Click here</a> to return to the admin page or
-<a href="logins.php">here</a> to go back to the previous page.</p>
+<p>Please <a href="index.html">click here to go back to the admin page or <a href="logins.php">here to go to the logins page.</p>
 </body>
 </html>

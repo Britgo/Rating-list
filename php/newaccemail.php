@@ -21,9 +21,9 @@
 
 function newaccemail($email, $userid, $passw)  {
 	if (strlen($email) != 0)  {
-		$fh = popen("REPLYTO=admin@ratings.britgo.org mail -s 'BGA rating list account created' $email", "w");
+		$fh = popen("REPLYTO=please_do_not_reply@ratings.britgo.org mail -s 'BGA rating list account created' $email", "w");
 		fwrite($fh, "Please DO NOT reply to this message!!!\n\n");
-		fwrite($fh, "A rating list account has been created for you on http://tournaments.britgo.org\n\n");
+		fwrite($fh, "A rating list account has been created for you on http://ratings.britgo.org\n\n");
 		fwrite($fh, "Your user id is $userid and your password is $passw\n\n"); 
 		fwrite($fh, "Please log in and reset your password if you wish\n");
 		pclose($fh);
