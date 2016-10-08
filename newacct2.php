@@ -89,6 +89,6 @@ a confirmatory email with the password.</p>
 
 EOT;
 ?>
-<p>Please <a href="index.html">click here to go back to the admin page or <a href="logins.php">here to go to the logins page.</p>
+<p>Please <a href="index.html">click here</a> to go back to the admin page or <a href="logins.php">here</a> to go to the logins page.</p>
 </body>
 </html>
