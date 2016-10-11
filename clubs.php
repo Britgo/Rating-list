@@ -28,7 +28,7 @@ function count_usage($ccode, $yrs)  {
     $qcode = mysql_real_escape_string($ccode);
     $q = "SELECT COUNT(*) FROM player WHERE club='$qcode'";
     if ($yrs > 0)
-        $q .= " AND since >= DATE_SUB(CURRENT_DATE(), INTERVAL $yrs YEAR)";
+        $q .= " AND since >= DATE_SUB(CURRENT_DATE(),INTERVAL $yrs YEAR)";
     $ret = mysql_query($q);
     if (!$ret)
         return  htmlspecialchars(mysql_error());
@@ -83,7 +83,7 @@ while  ($row = mysql_fetch_assoc($ret))  {
     $qname = htmlspecialchars($name);
     $ecode = urlencode($code);
     $p = count_usage($code, 0);
-    $p2 = count_usage($coode, 2);
+    $p2 = count_usage($code, 2);
     print <<<EOT
 <tr>
     <td>$qcode</td>
