@@ -31,7 +31,7 @@ function count_usage($ccode, $yrs)  {
         $q .= " AND since >= DATE_SUB(CURRENT_DATE(), INTERVAL $yrs YEARS)";
     $ret = mysql_query($q);
     if (!$ret)
-        return  0;
+        return  htmlspecialchars(mysql_error());
     $row = mysql_fetch_array($ret);
     return  $row[0];
 }
