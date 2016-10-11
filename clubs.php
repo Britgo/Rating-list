@@ -24,6 +24,18 @@ include 'php/rlerr.php';
 include 'php/opendb.php';
 include 'php/checklogged.php';
 
+function count_usage($ccode, $yrs)  {
+    $qcode = mysql_real_escape_string($ccode);
+    $q = "SELECT COUNT(*) FROM player WHERE club='$qcode'";
+    if ($yrs > 0)
+        $q .= " AND since >= DATE_SUB(CURRENT_DATE(), INTERVAL $yrs YEARS)";
+    $ret = mysql_query($q);
+    if (!$ret)
+        return  0;
+    $row = mysql_fetch_array($ret);
+    return  $row[0];
+}
+
 try {
    opendb();
 }
@@ -59,6 +71,8 @@ function okdel(name, url)  {
 <tr>
    <th>Code</th>
    <th>Name</th>
+   <th>Players</th>
+   <th>Play < 2 years</th>
    <th>Actions</th>
 </tr>
 <?php
@@ -68,10 +82,14 @@ while  ($row = mysql_fetch_assoc($ret))  {
     $qcode = htmlspecialchars($code);
     $qname = htmlspecialchars($name);
     $ecode = urlencode($code);
+    $p = count_usage($code, 0);
+    $p2 = count_usage($coode, 2);
     print <<<EOT
 <tr>
     <td>$qcode</td>
     <td>$qname</td>
+    <td>$p</td>
+    <td>$p2</td>
     <td><a href="updclub.php?clubcode=$ecode" title="Update details for this club">Update</a>
     &nbsp;<a href="javascript:okdel('$qcode', '$ecode');" title="Remove this club from the system">Delete</a></td>
 </tr>
