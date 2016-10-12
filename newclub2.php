@@ -21,7 +21,7 @@
 
 // Clog up the works for spammers
 
-if (isset($_POST["clubcode"]) || !isset($_POST["name"]))  {
+if (!isset($_POST["clubcode"]) || !isset($_POST["name"]))  {
     $mess = "No code or name";
     include 'php/wrongentry.php';
     exit(0);
