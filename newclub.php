@@ -42,7 +42,7 @@ if (!$ret)  {
 
 $clubcodes = array();
 while  ($row = mysql_fetch_array($ret))
-    array_push($clubcodes, $row[0]);
+    array_push($clubcodes, strtolower($row[0]));
 
 include 'php/head.php';
 ?>
@@ -64,10 +64,12 @@ function formvalid()
         alert("No valid code given");
       	return  false;
     }
-    if (Existing_codes[codeval])  {
+    if (Existing_codes[codeval.toLowerCase()])  {
         alert("Code " + codeval + " already exists");
         return  false;
     }
+    if (codeval.length != 4 && !confirm("Codes are usually 4 characters long - OK"))
+        return  false;
     if  (!nonblank(form.name.value))  {
         alert("No club name address given");
         return  false;
