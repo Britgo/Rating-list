@@ -13,13 +13,15 @@ openfiles: /home/jmc/src/Websites/ratingscripts/rempwbyuid.php:1209:506:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/newacct2.php:2652:1374:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/php/wrongentry.php:0:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/logins.php:2416:1073:0:
-openfiles: /home/jmc/src/Websites/ratingscripts/newacct.php:2150:1244:0:
+openfiles: /home/jmc/src/Websites/ratingscripts/newacct.php:2150:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/dellogin.php:1632:0:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/updlogin.php:3287:1649:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/updlogin2.php:2257:874:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/ownacct.php:3054:1513:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/ownacct2.php:2189:1130:0:
-openfiles: /home/jmc/src/Websites/ratingscripts/clubs.php:1161:202:1:
+openfiles: /home/jmc/src/Websites/ratingscripts/clubs.php:1843:1497:0:
+openfiles: /home/jmc/src/Websites/ratingscripts/newclub.php:2728:1339:0:
+openfiles: /home/jmc/src/Websites/ratingscripts/newclub2.php:1305:1021:1:
 snr_recursion_level: 5
 convertcolumn_horizontally: 0
 adv_open_matchname: 0
@@ -76,6 +78,8 @@ recent_files: file:///home/jmc/src/Websites/ratingscripts/updlogin2.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/ownacct.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/ownacct2.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/clubs.php
+recent_files: file:///home/jmc/src/Websites/ratingscripts/newclub.php
+recent_files: file:///home/jmc/src/Websites/ratingscripts/newclub2.php
 snr_replacetype: 0
 savedir: file:///home/jmc/src/Websites/ratingscripts
 spell_check_default: 1
