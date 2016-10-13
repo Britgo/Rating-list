@@ -19,9 +19,19 @@
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-$Title = "BGA Rating List Club Name";
+include 'php/session.php';
+include 'php/checklogged.php';
 include 'php/rlerr.php';
 include 'php/opendb.php';
+
+if  (!isset($_GET['clubcode']))  {
+    $mess = "No club given";
+    include 'php/wrongentry.php';
+    exit(0);
+}
+
+$updclub = $_GET['clubcode'];
+
 try {
 	opendb();
 }
@@ -32,61 +42,56 @@ catch (Rlerr $e)  {
 	exit(0);
 }
 
-$ret = mysql_query("SELECT code FROM club");
-if (!$ret)  {
+$qclub = mysql_real_escape_string($updclub);
+$ret = mysql_query("SELECT name FROM club WHERE code='$qclub'");
+if (!$ret) {
     $Title = "Database error";
     $mess = mysql_error();
     include 'php/generror.php';
     exit(0);
 }
+if (mysql_num_rows($ret) == 0)  {
+    $Title = "Unknown club";
+    $mess = "$updclub is an unknown club";
+    include 'php/generror.php';
+    exit(0); 
+}
+$row = mysql_fetch_assoc($ret);
+$name = $row['name'];
 
-$clubcodes = array();
-while  ($row = mysql_fetch_array($ret))
-    array_push($clubcodes, strtolower($row[0]));
+$hqcode = htmlspecialchars($updclub);
+$hqname = htmlspecialchars($name);
 
+$Title = "Update Club";
 include 'php/head.php';
 ?>
 <body>
 <script language="javascript" src="webfn.js"></script>
 <script language="javascript">
-<?php
-//  Set up list of existing codes to check against
-print "Existing_codes = new Array();\n";
-foreach ($clubcodes as $code)
-    print "Existing_codes['$code'] = 1;\n";
-?>
-
 function formvalid()
 {
     var form = document.cform;
-    var codeval = form.clubcode.value;
-    if  (!/^\w+$/.test(codeval))  {
-        alert("No valid code given");
-      	return  false;
-    }
-    if (Existing_codes[codeval.toLowerCase()])  {
-        alert("Code " + codeval + " already exists");
-        return  false;
-    }
-    if (codeval.length != 4 && !confirm("Codes are usually 4 characters long - OK"))
-        return  false;
     if  (!nonblank(form.name.value))  {
-        alert("No club name address given");
+        alert("No name given");
         return  false;
     }
     return true;
 }
 </script>
-<h1>Set up new club on rating list database</h1>
-<p>Please use the form below to set up a new club on the rating list database.</p>
-<form name="cform" action="newclub2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
+<h1>Update club name on rating list database</h1>
+<p>Please use the form below to update an account on the rating list database.</p>
+<form name="trform" action="updclub2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
 <table cellpadding="5" cellspacing="5" border="0">
-<tr><td>Club Code</td>
-<td><input type="text" name="clubcode" size="4"></td></tr>
-<tr><td>Name</td><td><input type="text" name="name"></td></tr>
+<?php
+print <<<EOT
+<input type="hidden" name="clubcode" value="$hqcode">
+<tr><td>Name</td><td><input type="text" name="name" value="$hqname"></td></tr>
+
+EOT;
+?>
 </table>
 <p>
-<input type="submit" name="subm" value="Create Club">
+<input type="submit" name="subm" value="Update Club">
 </p>
 </form>
 </body>

@@ -63,7 +63,7 @@ include 'php/head.php';
 function okdel(name, url)  {
    if  (!confirm("Do you really want to delete club " + name + " from the rating list system"))
       return;
-   document.location = "delclub.php?uid=" + url;
+   document.location = "delclub.php?clubcode=" + url;
 }
 </script>
 <h1>Club codes/names on rating list system</h1>
