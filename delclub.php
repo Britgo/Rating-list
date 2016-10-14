@@ -49,6 +49,8 @@ if  (!$ret) {
     include 'php/generror.php';
     exit(0);
 }
+// Fix any players on that club
+mysql_query("UPDATE player SET club='NoCb' WHERE club='$qcode'");
 $Title = "Deleted OK";
 include 'php/head.php';
 ?>

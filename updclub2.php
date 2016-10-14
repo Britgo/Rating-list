@@ -55,7 +55,7 @@ if (!$ret)  {
 $hcode = htmlspecialchars($clubcode);
 $hname = htmlspecialchars($name);
 
-$Title = "Club Created";
+$Title = "Club Updated";
 include 'php/head.php';
 ?>
 <body>

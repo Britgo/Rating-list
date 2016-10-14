@@ -67,7 +67,7 @@ function okdel(name, url)  {
 }
 </script>
 <h1>Club codes/names on rating list system</h1>
-<table cellpadding="3" cellspacing="5">
+<table cellpadding="1" cellspacing="2">
 <tr>
    <th>Code</th>
    <th>Name</th>
