@@ -69,7 +69,7 @@ $sfh = $Database->prepare("SELECT code,name FROM club");
 $sfh->execute;
 
 while (my @row = $sfh->fetchrow_array)  {
-	$Clubs{$row[0]} = $row[1];
+	$Clubs{lc $row[0]} = $row[1];
 }
 
 # Get the last shodan rating and one stone from the calibration
@@ -223,8 +223,10 @@ while (my @row = $sfh->fetchrow_array)  {
 	$since =~ s/(\d+)-(\d+)-(\d+)/($3+0)."-$month_names[$2-1]-$1"/e;
 	$since = "<a href=\"http://www.europeangodatabase.eu/EGD/Tournament_Card.php?&key=$lastt\"$title>$since</a>";
 	
-	if (defined($Clubs{$clubc}))  {
-		$clubc = $Clubs{$clubc};
+	my $lcclub = lc $clubc;
+	
+	if (defined($Clubs{$lcclub}))  {
+		$clubc = $Clubs{$lcclub};
 	}
 	else {
 		$clubc = "Unknown: $clubc";

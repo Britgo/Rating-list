@@ -60,10 +60,10 @@ include 'php/head.php';
 <body>
 <script language="javascript" src="webfn.js"></script>
 <script language="javascript">
-function okdel(name, f, l)  {
+function okdel(name, pin)  {
    if  (!confirm("Do you really want to delete player " + name + " from the rating list system"))
       return;
-   document.location = "delplayer.php?f=" + f + '&l=', l;
+   document.location = "delplayer.php?pin=$pin";
 }
 </script>
 <h1>Players on rating list system</h1>
@@ -111,7 +111,7 @@ while  ($row = mysql_fetch_assoc($ret))  {
     <td>$qsupp</td>
     <td>$qemail</td>
     <td><a href="updplayer.php?pin=$pin" title="Update details for this player">Update</a>
-    &nbsp;<a href="javascript:okdel('$name', '$qf', '$ql');" title="Remove this player from the system">Delete</a></td>
+    &nbsp;<a href="javascript:okdel('$name', $pin);" title="Remove this player from the system">Delete</a></td>
 </tr>
 
 EOT;

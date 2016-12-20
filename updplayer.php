@@ -24,13 +24,13 @@ include 'php/checklogged.php';
 include 'php/rlerr.php';
 include 'php/opendb.php';
 
-if  (!isset($_GET['clubcode']))  {
-    $mess = "No club given";
+if  (!isset($_GET['pin']))  {
+    $mess = "No pin given";
     include 'php/wrongentry.php';
     exit(0);
 }
 
-$updclub = $_GET['clubcode'];
+$updpin = $_GET['pin'];
 
 try {
 	opendb();
@@ -42,8 +42,7 @@ catch (Rlerr $e)  {
 	exit(0);
 }
 
-$qclub = mysql_real_escape_string($updclub);
-$ret = mysql_query("SELECT name FROM club WHERE code='$qclub'");
+$ret = mysql_query("SELECT first,last,club,suppress,email FROM player WHERE pin=$pin");
 if (!$ret) {
     $Title = "Database error";
     $mess = mysql_error();
@@ -51,18 +50,20 @@ if (!$ret) {
     exit(0);
 }
 if (mysql_num_rows($ret) == 0)  {
-    $Title = "Unknown club";
-    $mess = "$updclub is an unknown club";
+    $Title = "Unknown pin";
+    $mess = "$pin is an unknown pin";
     include 'php/generror.php';
     exit(0); 
 }
 $row = mysql_fetch_assoc($ret);
-$name = $row['name'];
+$first = $row['first'];
+$last = $row['last'];
+$club = $row['club'];
+$pin = $row['pin'];
+$suppress = $row['suppress'];
+$email = $row['email'];
 
-$hqcode = htmlspecialchars($updclub);
-$hqname = htmlspecialchars($name);
-
-$Title = "Update Club";
+$Title = "Update Player";
 include 'php/head.php';
 ?>
 <body>
@@ -70,7 +71,7 @@ include 'php/head.php';
 <script language="javascript">
 function formvalid()
 {
-    var form = document.cform;
+    var form = document.pform;
     if  (!nonblank(form.name.value))  {
         alert("No name given");
         return  false;
@@ -78,20 +79,20 @@ function formvalid()
     return true;
 }
 </script>
-<h1>Update club name on rating list database</h1>
-<p>Please use the form below to update a club name on the rating list database.</p>
-<form name="cform" action="updclub2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
+<h1>Update player details on rating list database</h1>
+<p>Please use the form below to update player details on the rating list database.</p>
+<form name="pform" action="updplayer2.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="javascript:return formvalid();">
 <table cellpadding="5" cellspacing="5" border="0">
 <?php
 print <<<EOT
-<input type="hidden" name="clubcode" value="$hqcode">
+<input type="hidden" name="pin" value="$pin">
 <tr><td>Name</td><td><input type="text" name="name" value="$hqname"></td></tr>
 
 EOT;
 ?>
 </table>
 <p>
-<input type="submit" name="subm" value="Update Club">
+<input type="submit" name="subm" value="Update player">
 </p>
 </form>
 </body>
