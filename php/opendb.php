@@ -1,5 +1,5 @@
 <?php
-//   Copyright 2016 John Collins
+//   Copyright 2016-7 John Collins
 
 // *****************************************************************************
 // PLEASE BE CAREFUL ABOUT EDITING THIS FILE, IT IS SOURCE-CONTROLLED BY GIT!!!!
@@ -23,19 +23,22 @@
 
 // Open database and throw error if not nice.
 
+include 'credentials.php';
+
 function opendb()
 {
 
-	//  CHANGE THESE AS REQUIRED!!!!
-
-	$hostname = "localhost";	
-	$username = "rlupd";
-	$password = "RL update";
-	$dbname = "ratinglist";
+    try  {
+		$dbcred = getcredentials('ratinglist');
+	}
+	catch (Credentials_error $e)  {
+		$ecode = $e->getMessage();
+		throw new Rlerr("Cannot get DB credentials, error was $ecode", "DB credentials error");
+	}
 	
-	if  (!mysql_connect($hostname, $username, $password)  ||  !mysql_select_db($dbname))  {
+	if  (!mysql_connect("localhost", $dbcred->Username, $dbcred->Password)  ||  !mysql_select_db($dbcred->Databasename))  {
 		$ecode = mysql_error();
-		throw  new  Rlerr("Cannot open database, error was $ecode", "Database error");
+		throw new Rlerr("Cannot open database, error was $ecode", "Database error");
 	}
 }
 
