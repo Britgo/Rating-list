@@ -72,12 +72,15 @@ while (my @row = $sfh->fetchrow_array)  {
 
 # Get the last shodan rating and one stone from the calibration
 
-$sfh = $Database->prepare("SELECT shodan,onestone FROM calibration ORDER BY cdate DESC LIMIT 1");
-$sfh->execute;
-if (my @row = $sfh->fetchrow_array) {
-	$shodan = $row[0];
-	$onestone = $row[1];
-}
+#$sfh = $Database->prepare("SELECT shodan,onestone FROM calibration ORDER BY cdate DESC LIMIT 1");
+#$sfh->execute;
+#if (my @row = $sfh->fetchrow_array) {
+#	$shodan = $row[0];
+#	$onestone = $row[1];
+#}
+
+$shodan = 2100;
+$onestone = 100;
 
 # Ready to start generating list
 
