@@ -13,7 +13,7 @@ openfiles: /home/jmc/src/Websites/ratingscripts/players.php:2644:1439:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/updplayer.php:2820:1402:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/updclub.php:2405:1412:0:
 openfiles: /home/jmc/src/Websites/ratingscripts/rating_list_gen.pl:7212:6662:0:
-openfiles: /home/jmc/src/Websites/ratingscripts/php/opendb.php:1417:0:1:
+openfiles: /home/jmc/src/Websites/ratingscripts/php/opendb.php:1646:0:1:
 snr_recursion_level: 5
 convertcolumn_horizontally: 0
 adv_open_matchname: 0
@@ -78,7 +78,7 @@ recent_files: file:///home/jmc/src/Websites/ratingscripts/updplayer.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/updclub.php
 recent_files: file:///home/jmc/src/Websites/ratingscripts/php/opendb.php
 snr_replacetype: 0
-savedir: file:///home/jmc/src/Websites/ratingscripts
+savedir: file:///home/jmc/src/Websites/ratingscripts/php
 spell_check_default: 1
 spell_insert_entities: 0
 last_filefilter: 

@@ -5,6 +5,7 @@
 #
 # Copyright John Collins 26/01/2011
 
+use Config::INI::Reader;
 use DBD::mysql;
 use Time::Local;
 
@@ -37,12 +38,9 @@ unless (open(EGDF, $uncomp_file))  {
 # Read the list of tournaments and dates
 # We need read/write as we are resetting the "changed" flag.
 
-$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
-
-unless ($Database)  {
-	print STDERR "Cannot open rating list database\n";
-	exit 11;
-}
+$inicont = Config::INI::Reader->read_file('/etc/webdb-credentials');
+$ldbc = $inicont->{ratinglist};
+$Database = DBI->connect("DBI:mysql:$ldbc->{database}", $ldbc->{user}, $ldbc->{password}) or die "Cannot open DB";
 
 # Read list of tournament names and dates
 

@@ -4,6 +4,7 @@
 #
 # Copyright John Collins 23/01/2011
 
+use Config::INI::Reader;
 use DBD::mysql;
 use File::Copy;
 use File::Compare;
@@ -61,12 +62,9 @@ exit 0 if compare($EGD_file, $old_file) == 0;
 # Open the database
 # Read the list of tournaments and dates
 
-$Database = DBI->connect("DBI:mysql:ratinglist", "rlupd", "RL update");
-
-unless ($Database)  {
-	print STDERR "Cannot open rating list database\n";
-	exit 11;
-}
+$inicont = Config::INI::Reader->read_file('/etc/webdb-credentials');
+$ldbc = $inicont->{ratinglist};
+$Database = DBI->connect("DBI:mysql:$ldbc->{database}", $ldbc->{user}, $ldbc->{password}) or die "Cannot open DB";
 
 $sfh = $Database->prepare("SELECT tcode,tdate FROM tournament");
 $sfh->execute;

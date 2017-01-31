@@ -4,6 +4,7 @@
 #
 # Copyright John Collins 25/01/2011
 
+use Config::INI::Reader;
 use DBD::mysql;
 use Time::Local;
 use Getopt::Long;
@@ -45,12 +46,9 @@ unless (chdir $rating_scripts)  {
 
 # OK open the database
 
-$Database = DBI->connect("DBI:mysql:ratinglist", "rluser", "Get Ratings");
-
-unless ($Database)  {
-	print STDERR "Cannot open rating list database\n";
-	exit 11;
-}
+$inicont = Config::INI::Reader->read_file('/etc/webdb-credentials');
+$ldbc = $inicont->{ratinglist};
+$Database = DBI->connect("DBI:mysql:$ldbc->{database}", $ldbc->{user}, $ldbc->{password}) or die "Cannot open DB";
 
 # Read list of tournament names and dates
 
